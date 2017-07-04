@@ -1,0 +1,18 @@
+author: mongoose-os
+description: Configuration over Bluetooth GATT service support
+type: lib
+version: 1.0
+
+libs:
+  - origin: https://github.com/mongoose-os-libs/bt-common
+
+config_schema:
+  - ["bt.config_enable", "b", false, {title: "Enable BT"}]
+
+tags:
+  - bt
+  - bluetooth
+  - c
+  - hw
+
+skeleton_version: 2017-06-16
