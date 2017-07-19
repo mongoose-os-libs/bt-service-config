@@ -14,10 +14,10 @@
 #include "common/mbuf.h"
 #include "common/mg_str.h"
 
-#include "fw/src/mgos_config.h"
-#include "fw/src/mgos_hal.h"
-#include "fw/src/mgos_sys_config.h"
-#include "fw/src/mgos_utils.h"
+#include "mgos_config.h"
+#include "mgos_hal.h"
+#include "mgos_sys_config.h"
+#include "mgos_utils.h"
 
 #include "esp32_bt.h"
 
