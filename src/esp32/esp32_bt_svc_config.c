@@ -14,7 +14,7 @@
 #include "common/mbuf.h"
 #include "common/mg_str.h"
 
-#include "mgos_config.h"
+#include "mgos_config_util.h"
 #include "mgos_hal.h"
 #include "mgos_sys_config.h"
 #include "mgos_utils.h"
@@ -120,7 +120,7 @@ struct bt_cfg_svc_data {
 static bool mgos_bt_svc_config_set(struct bt_cfg_svc_data *sd) {
   bool ret = false;
   const struct mgos_conf_entry *e = mgos_conf_find_schema_entry_s(
-      mg_mk_str_n(sd->key.buf, sd->key.len), sys_config_schema());
+      mg_mk_str_n(sd->key.buf, sd->key.len), mgos_config_schema());
   if (e == NULL) {
     LOG(LL_ERROR,
         ("Config key '%.*s' not found", (int) sd->key.len, sd->key.buf));
@@ -130,7 +130,7 @@ static bool mgos_bt_svc_config_set(struct bt_cfg_svc_data *sd) {
   mbuf_append(&sd->value, "", 1);
   sd->value.len--;
   const char *vt = NULL;
-  char *vp = (((char *) get_cfg()) + e->offset);
+  char *vp = (((char *) &mgos_sys_config) + e->offset);
   /* For simplicity, we only allow setting leaf values. */
   switch (e->type) {
     case CONF_TYPE_INT: {
@@ -229,7 +229,7 @@ static bool mgos_bt_svc_config_ev(struct esp32_bt_session *bs,
       }
       sd->state = BT_CFG_STATE_VALUE_READ;
       const struct mgos_conf_entry *e = mgos_conf_find_schema_entry_s(
-          mg_mk_str_n(sd->key.buf, sd->key.len), sys_config_schema());
+          mg_mk_str_n(sd->key.buf, sd->key.len), mgos_config_schema());
       if (e == NULL) {
         LOG(LL_ERROR,
             ("Config key '%.*s' not found", (int) sd->key.len, sd->key.buf));
@@ -237,8 +237,9 @@ static bool mgos_bt_svc_config_ev(struct esp32_bt_session *bs,
       }
       struct mbuf vb;
       mbuf_init(&vb, 0);
-      mgos_conf_emit_cb(get_cfg(), NULL /* base */, e, false /* pretty */, &vb,
-                        NULL /* cb */, NULL /* cb_param */);
+      mgos_conf_emit_cb(&mgos_sys_config, NULL /* base */, e,
+                        false /* pretty */, &vb, NULL /* cb */,
+                        NULL /* cb_param */);
       uint16_t to_send = bc->mtu - 1;
       if (p->offset > vb.len) break;
       if (vb.len - p->offset < to_send) to_send = vb.len - p->offset;
@@ -294,7 +295,7 @@ static bool mgos_bt_svc_config_ev(struct esp32_bt_session *bs,
         if (ret) {
           if (p->len == 1 && (p->value[0] == '1' || p->value[0] == '2')) {
             char *msg = NULL;
-            ret = save_cfg(get_cfg(), &msg);
+            ret = save_cfg(&mgos_sys_config, &msg);
             if (!ret) {
               LOG(LL_ERROR, ("Error saving config: %s", msg));
             } else if (p->value[0] == '2') {
