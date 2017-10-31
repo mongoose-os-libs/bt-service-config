@@ -322,8 +322,9 @@ static bool mgos_bt_svc_config_ev(struct esp32_bt_session *bs,
 }
 
 bool mgos_bt_service_config_init(void) {
-  mgos_bt_gatts_register_service(
-      mos_cfg_gatt_db, sizeof(mos_cfg_gatt_db) / sizeof(mos_cfg_gatt_db[0]),
-      mgos_bt_svc_config_ev);
+  if (mgos_sys_config_get_bt_config_svc_enable()) {
+    mgos_bt_gatts_register_service(mos_cfg_gatt_db, ARRAY_SIZE(mos_cfg_gatt_db),
+                                   mgos_bt_svc_config_ev);
+  }
   return true;
 }

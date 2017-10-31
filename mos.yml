@@ -7,12 +7,11 @@ libs:
   - origin: https://github.com/mongoose-os-libs/bt-common
 
 config_schema:
-  - ["bt.config_enable", "b", false, {title: "Enable BT"}]
+  - ["bt.config_svc_enable", "b", true, {title: "Enable the config service"}]
 
 tags:
   - bt
   - bluetooth
   - c
-  - net
 
 manifest_version: 2017-09-29
