@@ -19,7 +19,7 @@
 #include "mgos_sys_config.h"
 #include "mgos_utils.h"
 
-#include "esp32_bt.h"
+#include "esp32_bt_gatts.h"
 
 /* Note: UUIDs below are in reverse, because that's how ESP wants them. */
 static const esp_bt_uuid_t mos_cfg_svc_uuid = {
