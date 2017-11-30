@@ -43,3 +43,10 @@ Once device is confirmed to have successfully connected to WiFi, BT config can b
   * `bt.config_enable` -> `key`  # Or `bt.enable` to disable Bluetooth entirely.
   * `false` -> `value`
   * `2` -> `save`  # Save and reboot with BT configuration disabled.
+
+## See Also
+
+See [rpc-gatts](https://github.com/mongoose-os-libs/rpc-gatts) library,
+which provides a GATT service that acts as an RPC channel. It accepts incoming
+RPC frames and can send them as well - or rather,
+makes them available for collection.
