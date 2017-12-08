@@ -6,7 +6,7 @@ This library provides a way to examine and change configuration over Generic Att
 
 The service is designed to be usable with any generic BLE mobile app that supports GATT, e.g. BLE Scanner ([Android](https://play.google.com/store/apps/details?id=com.macdom.ble.blescanner), [iOS](https://itunes.apple.com/us/app/ble-scanner-4-0/id1221763603)).
 
-*Warning:* At present, this service is not secured in any way and anyone within range of a device that has this service enabled will be able to read and change its configuration. In its current form it is only intended for initial provisioning and should be turned off immediately after initial setup. See example provisioning process below.
+*Note*: Default BT configuration is permissive. See https://github.com/mongoose-os-libs/bt-common#security for a better idea.
 
 ## Attribute description
 
