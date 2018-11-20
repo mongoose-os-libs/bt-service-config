@@ -173,7 +173,8 @@ static bool mgos_bt_svc_config_set(struct bt_cfg_svc_data *sd) {
       vt = "string";
       char **svp = (char **) vp;
       mgos_conf_set_str(svp, sd->value.buf);
-      LOG(LL_INFO, ("'%.*s' = '%s'", (int) sd->key.len, sd->key.buf, *svp));
+      LOG(LL_INFO, ("'%.*s' = '%s'", (int) sd->key.len, sd->key.buf,
+                    (*svp ? *svp : "")));
       ret = true;
       break;
     }
