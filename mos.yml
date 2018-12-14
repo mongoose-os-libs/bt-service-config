@@ -3,11 +3,15 @@ description: Configuration over Bluetooth GATT service support
 type: lib
 version: 1.0
 
+sources:
+  - src
+
 libs:
   - origin: https://github.com/mongoose-os-libs/bt-common
 
 config_schema:
   - ["bt.config_svc_enable", "b", true, {title: "Enable the config service"}]
+  - ["bt.config_svc_sec_level", "i", 0, {title: "Minimum required security level"}]
 
 tags:
   - bt
