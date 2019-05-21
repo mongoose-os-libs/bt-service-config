@@ -88,7 +88,7 @@ static bool mgos_bt_svc_config_set(struct bt_cfg_svc_data *sd) {
     }
     case CONF_TYPE_STRING: {
       vt = "string";
-      char **svp = (char **) vp;
+      const char **svp = (const char **) vp;
       mgos_conf_set_str(svp, sd->value.buf);
       LOG(LL_INFO, ("'%.*s' = '%s'", (int) sd->key.len, sd->key.buf,
                     (*svp ? *svp : "")));
