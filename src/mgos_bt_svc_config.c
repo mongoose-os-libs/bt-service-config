@@ -249,17 +249,27 @@ static enum mgos_bt_gatt_status mgos_bt_cfg_save_ev(
   }
   if (wa->data.len == 1) {
     char op = wa->data.p[0];
-    if (op != '1' && op != '2') {
-      LOG(LL_ERROR, ("Invalid save action %c", op));
-      return MGOS_BT_GATT_STATUS_INVALID_OFFSET;
-    }
-    char *msg = NULL;
-    if (!save_cfg(&mgos_sys_config, &msg)) {
-      LOG(LL_ERROR, ("Error saving config: %s", msg));
-      return MGOS_BT_GATT_STATUS_INVALID_OFFSET;
-    }
-    if (op == '2') {
-      mgos_system_restart_after(300);
+    switch (op) {
+      case '0':
+        /* Nothing to do */
+        break;
+      case '1':
+        // fallthrough
+      case '2': {
+        char *msg = NULL;
+        if (!save_cfg(&mgos_sys_config, &msg)) {
+          LOG(LL_ERROR, ("Error saving config: %s", msg));
+          return MGOS_BT_GATT_STATUS_INVALID_OFFSET;
+        }
+        if (op == '2') {
+          mgos_system_restart_after(300);
+        }
+        break;
+      }
+      default: {
+        LOG(LL_ERROR, ("Invalid save action %c", op));
+        return MGOS_BT_GATT_STATUS_INVALID_OFFSET;
+      }
     }
   }
   return MGOS_BT_GATT_STATUS_OK;
