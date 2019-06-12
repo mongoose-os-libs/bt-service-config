@@ -267,19 +267,19 @@ static enum mgos_bt_gatt_status mgos_bt_cfg_save_ev(
 
 static const struct mgos_bt_gatts_char_def s_cfg_svc_def[] = {
     {
-     .uuid = "306d4f53-5f43-4647-5f6b-65795f5f5f30", /* 0mOS_CFG_key___0 */
-     .prop = MGOS_BT_GATT_PROP_RWNI(0, 1, 0, 0),
-     .handler = mgos_bt_cfg_key_ev,
+        .uuid = "306d4f53-5f43-4647-5f6b-65795f5f5f30", /* 0mOS_CFG_key___0 */
+        .prop = MGOS_BT_GATT_PROP_RWNI(0, 1, 0, 0),
+        .handler = mgos_bt_cfg_key_ev,
     },
     {
-     .uuid = "316d4f53-5f43-4647-5f76-616c75655f31", /* 1mOS_CFG_value_1 */
-     .prop = MGOS_BT_GATT_PROP_RWNI(1, 1, 0, 0),
-     .handler = mgos_bt_cfg_val_ev,
+        .uuid = "316d4f53-5f43-4647-5f76-616c75655f31", /* 1mOS_CFG_value_1 */
+        .prop = MGOS_BT_GATT_PROP_RWNI(1, 1, 0, 0),
+        .handler = mgos_bt_cfg_val_ev,
     },
     {
-     .uuid = "326d4f53-5f43-4647-5f73-6176655f5f32", /* 2mOS_CFG_save__2 */
-     .prop = MGOS_BT_GATT_PROP_RWNI(0, 1, 0, 0),
-     .handler = mgos_bt_cfg_save_ev,
+        .uuid = "326d4f53-5f43-4647-5f73-6176655f5f32", /* 2mOS_CFG_save__2 */
+        .prop = MGOS_BT_GATT_PROP_RWNI(0, 1, 0, 0),
+        .handler = mgos_bt_cfg_save_ev,
     },
     {.uuid = NULL},
 };
