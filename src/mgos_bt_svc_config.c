@@ -74,6 +74,18 @@ static bool mgos_bt_svc_config_set(struct bt_cfg_svc_data *sd) {
       }
       break;
     }
+    case CONF_TYPE_UNSIGNED_INT: {
+      unsigned int *uivp = (unsigned int *) vp;
+      char *endptr = NULL;
+      unsigned int v = strtoul(sd->value.buf, &endptr, 0);
+      vt = "uint";
+      if (endptr - sd->value.buf == sd->value.len) {
+        *uivp = v;
+        ret = true;
+        LOG(LL_INFO, ("'%.*s' = %u", (int) sd->key.len, sd->key.buf, *uivp));
+      }
+      break;
+    }
     case CONF_TYPE_DOUBLE: {
       double *dvp = (double *) vp;
       char *endptr = NULL;
