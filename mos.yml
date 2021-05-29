@@ -7,7 +7,7 @@ sources:
   - src
 
 libs:
-  - origin: https://github.com/mongoose-os-libs/bt-common
+  - location: https://github.com/mongoose-os-libs/bt-common
 
 config_schema:
   - ["bt.config_svc_enable", "b", true, {title: "Enable the config service"}]
