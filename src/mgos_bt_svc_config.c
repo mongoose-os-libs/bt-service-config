@@ -86,11 +86,23 @@ static bool mgos_bt_svc_config_set(struct bt_cfg_svc_data *sd) {
       }
       break;
     }
+    case CONF_TYPE_FLOAT: {
+      float *fvp = (float *) vp;
+      char *endptr = NULL;
+      float v = strtof(sd->value.buf, &endptr);
+      vt = "float";
+      if (endptr - sd->value.buf == sd->value.len) {
+        *fvp = v;
+        ret = true;
+        LOG(LL_INFO, ("'%.*s' = %f", (int) sd->key.len, sd->key.buf, *fvp));
+      }
+      break;
+    }
     case CONF_TYPE_DOUBLE: {
       double *dvp = (double *) vp;
       char *endptr = NULL;
       double v = strtod(sd->value.buf, &endptr);
-      vt = "float";
+      vt = "double";
       if (endptr - sd->value.buf == sd->value.len) {
         *dvp = v;
         ret = true;
