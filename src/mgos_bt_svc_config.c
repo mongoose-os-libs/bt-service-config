@@ -220,13 +220,9 @@ static enum mgos_bt_gatt_status mgos_bt_cfg_val_ev(struct mgos_bt_gatts_conn *c,
     void *cfg = ((char *) &mgos_sys_config) + e->offset;
     mgos_conf_emit_cb(cfg, NULL /* base */, e, false /* pretty */, &vb,
                       NULL /* cb */, NULL /* cb_param */);
-    uint16_t to_send = c->gc.mtu - 1;
-    if (ra->offset > vb.len) return MGOS_BT_GATT_STATUS_INVALID_OFFSET;
-    if (vb.len - ra->offset < to_send) to_send = vb.len - ra->offset;
-    struct mg_str data = MG_MK_STR_N(vb.buf + ra->offset, to_send);
-    LOG(LL_INFO,
-        ("Read '%.*s' %d @ %d = '%.*s'", (int) sd->key.len, sd->key.buf,
-         (int) to_send, (int) ra->offset, (int) data.len, data.p));
+    struct mg_str data = MG_MK_STR_N(vb.buf, vb.len);
+    LOG(LL_INFO, ("Read '%.*s' = '%.*s'", (int) sd->key.len, sd->key.buf,
+                  (int) data.len, data.p));
     mgos_bt_gatts_send_resp_data(c, ra, data);
     mbuf_free(&vb);
     return MGOS_BT_GATT_STATUS_OK;
